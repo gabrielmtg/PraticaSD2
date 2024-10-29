@@ -1,0 +1,1 @@
+--implementar, acho que podemos fazer isso já no somador

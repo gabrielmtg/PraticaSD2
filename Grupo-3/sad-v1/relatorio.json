@@ -1,0 +1,23 @@
+{
+    "grupo": {
+        "nome": "grupo 1",
+        "alunos": [{"nome": "um nome", "matricula": "08132023"}]
+    },
+    "quartus": {
+        "os": "Windows 11",
+        "versao": "13.1.0 Build 162 10/23/2013 SJ Web Edition",
+        "fpga": {
+            "familia": "Cyclone III",
+            "dispositivo": "EP3C5E144C"
+        }
+    },
+    "utilizacao": {
+        "total combinational functions": 123,
+        "dedicated logic registers": 12,
+        "total pins": 5
+    },
+    "atraso": {
+        "Fmax": 2.5,
+        "unidade": "MHz"
+    }
+}
