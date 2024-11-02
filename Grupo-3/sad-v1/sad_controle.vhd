@@ -4,7 +4,7 @@ use IEEE.numeric_std.all;
 use ieee.math_real.all;
 use ieee.std_logic_unsigned.all;
 
-ENTITY sad IS
+ENTITY sad_controle IS
 	GENERIC (
 		-- obrigatório ---
 		-- defina as operações considerando o número B de bits por amostra
@@ -37,7 +37,7 @@ ENTITY sad IS
 	);
 END ENTITY; -- sad
 
-ARCHITECTURE arch OF sad IS
+ARCHITECTURE arch OF sad_controle IS
 	type estado is (S0, S1, S2, S3, S4, S5);
 	signal estadoAtual, proximoEstado : estado;
 	signal pronto, zi, ci, cPA, cPB, zsoma, csoma, csad_reg, menor : std_logic;
@@ -52,7 +52,7 @@ BEGIN
 	process(reset, clk)
 	begin
 		if(reset = '1') then
-			estadoAtual = S0;
+			estadoAtual <= S0;
 		elsif(rising_edge(clk)) then
 			case estadoAtual is
 				when S0 =>
