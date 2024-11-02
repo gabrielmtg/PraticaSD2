@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.ALL;
 USE IEEE.math_real.all; -- (pra usar o log teos que fazer o cast real(real(numero))) e depois fazer o integer(number)
 use ieee.numeric_std.all;-- pra usar os signed
 
-ENTITY datapath IS
+ENTITY sad_operativo IS
 	GENERIC (
 		-- obrigatório ---
 		-- defina as operações considerando o número B de bits por amostra
@@ -29,8 +29,8 @@ ENTITY datapath IS
 		
 		--LB : integer(LOG2(real(N))); -- e para ser o log de 64, logo o nosso 6, ver depois
 		pA,pB : IN STD_LOGIC_VECTOR(B DOWNTO 0); 
-		fim : OUT STD_LOGIC_VECTOR(5 DOWNTO 0); -- a saida end so datapath(6 bits)
-		SAD : OUT STD_LOGIC_VECTOR(13 DOWNTO 0) -- a saida sad do datapath(14 bits)
+		fim : OUT STD_LOGIC_VECTOR(5 DOWNTO 0); -- a saida end so sad_operativo(6 bits)
+		SAD : OUT STD_LOGIC_VECTOR(13 DOWNTO 0) -- a saida sad do sad_operativo(14 bits)
 	);
 	
 --para chegar nesse 14 temos que pegar o log de 64(6) e somar com o 8 que temos, ai vamos ter o 14, mas como fazer isso?
@@ -38,7 +38,7 @@ ENTITY datapath IS
 	
 END ENTITY; -- sad
 
-ARCHITECTURE arch OF datapath IS
+ARCHITECTURE arch OF sad_operativo IS
 	-- descrever
 	-- usar sad_bo e sad_bc (sad_operativo e sad_controle)
 	-- não codifiquem toda a arquitetura apenas neste arquivo

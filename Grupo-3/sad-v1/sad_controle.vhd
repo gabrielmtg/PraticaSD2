@@ -1,5 +1,8 @@
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+use IEEE.numeric_std.all;
+use ieee.math_real.all;
+use ieee.std_logic_unsigned.all;
 
 ENTITY sad IS
 	GENERIC (
@@ -35,14 +38,96 @@ ENTITY sad IS
 END ENTITY; -- sad
 
 ARCHITECTURE arch OF sad IS
+	type estado is (S0, S1, S2, S3, S4, S5);
+	signal estadoAtual, proximoEstado : estado;
+	signal pronto, zi, ci, cPA, cPB, zsoma, csoma, csad_reg, menor : std_logic;
+	
 	-- descrever
 	-- usar sad_bo e sad_bc (sad_operativo e sad_controle)
 	-- não codifiquem toda a arquitetura apenas neste arquivo
 	-- modularizem a descrição de vocês...
-signal:
-	
-	
-	
-	
 BEGIN
+
+--revisar isso dps pq com certeza nao esta certo.
+	process(reset, clk)
+	begin
+		if(reset = '1') then
+			estadoAtual = S0;
+		elsif(rising_edge(clk)) then
+			case estadoAtual is
+				when S0 =>
+					pronto <= '1';
+					zi <= '0';
+					ci <= '0';
+					cPA <= '0';
+					cPB <= '0';
+					zsoma <= '0';
+					csoma <= '0';
+					csad_reg <= '0';
+					read_mem <= '0';
+					proximoEstado <= S1;
+					
+				when S1 =>
+					pronto <= '0';
+					zi <= '1';
+					ci <= '1';
+					cPA <= '0';
+					cPB <= '0';
+					zsoma <= '1';
+					csoma <= '1';
+					csad_reg <= '0';
+					read_mem <= '0';
+					proximoEstado <= S2;
+
+				when S2 =>
+					pronto <= '0';
+					zi <= '1';
+					ci <= '1';
+					cPA <= '0';
+					cPB <= '0';
+					zsoma <= '1';
+					csoma <= '1';
+					csad_reg <= '0';
+					read_mem <= '0';
+					if(menor = '0') then
+						proximoEstado <= S3;
+					elsif (menor = '1') then
+						proximoEstado <= S5;
+					end if;
+				when S3 =>
+					pronto <= '0';
+					zi <= '1';
+					ci <= '1';
+					cPA <= '1';
+					cPB <= '1';
+					zsoma <= '0';
+					csoma <= '0';
+					csad_reg <= '0';
+					read_mem <= '1';
+					proximoEstado <= S4;
+				when S4 =>
+					pronto <= '0';
+					zi <= '0';
+					ci <= '1';
+					cPA <= '0';
+					cPB <= '0';
+					zsoma <= '0';
+					csoma <= '1';
+					csad_reg <= '0';
+					read_mem <= '0';
+					proximoEstado <= S2;
+				when S5 =>
+					pronto <= '0';
+					zi <= '0';
+					ci <= '0';
+					cPA <= '0';
+					cPB <= '0';
+					zsoma <= '0';
+					csoma <= '0';
+					csad_reg <= '1';
+					read_mem <= '0';
+					proximoEstado <= S0;
+				end case;
+			end if;
+		end process;
 END ARCHITECTURE; -- arch
