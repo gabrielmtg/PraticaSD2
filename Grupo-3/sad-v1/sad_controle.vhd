@@ -28,19 +28,20 @@ ENTITY sad_controle IS
 		clk : IN STD_LOGIC; -- ck
 		enable : IN STD_LOGIC; -- iniciar
 		reset : IN STD_LOGIC; -- reset
-		sample_ori : IN STD_LOGIC_VECTOR (DEFINIR DOWNTO 0); -- Mem_A[end]
-		sample_can : IN STD_LOGIC_VECTOR (DEFINIR DOWNTO 0); -- Mem_B[end]
+		--sample_ori : IN STD_LOGIC_VECTOR (B-1 DOWNTO 0); -- Mem_A[end]
+		--sample_can : IN STD_LOGIC_VECTOR (B-1 DOWNTO 0); -- Mem_B[end]
 		read_mem : OUT STD_LOGIC; -- read
-		address : OUT STD_LOGIC_VECTOR (DEFINIR DOWNTO 0); -- end
-		sad_value : OUT STD_LOGIC_VECTOR (DEFINIR DOWNTO 0); -- SAD
-		done: OUT STD_LOGIC -- pronto
+		--address : OUT STD_LOGIC_VECTOR (5 DOWNTO 0); -- end -- Aqui é pra pegar o log de N(no caso log de 64, que é 5)
+		--sad_value : OUT STD_LOGIC_VECTOR (13 DOWNTO 0); -- SAD -- aqui deveriamos somar o B com o Log de N(8+5 = 13)
+		done,zi,ci,cPA,cPB,zsoma,csoma,csad_reg: OUT STD_LOGIC; -- done e outras coisas
+		menor : IN STD_LOGIC -- menor
 	);
+	
 END ENTITY; -- sad
 
 ARCHITECTURE arch OF sad_controle IS
 	type estado is (S0, S1, S2, S3, S4, S5);
 	signal estadoAtual, proximoEstado : estado;
-	signal pronto, zi, ci, cPA, cPB, zsoma, csoma, csad_reg, menor : std_logic;
 	
 	-- descrever
 	-- usar sad_bo e sad_bc (sad_operativo e sad_controle)
@@ -56,7 +57,7 @@ BEGIN
 		elsif(rising_edge(clk)) then
 			case estadoAtual is
 				when S0 =>
-					pronto <= '1';
+					done <= '1';
 					zi <= '0';
 					ci <= '0';
 					cPA <= '0';
@@ -68,7 +69,7 @@ BEGIN
 					proximoEstado <= S1;
 					
 				when S1 =>
-					pronto <= '0';
+					done <= '0';
 					zi <= '1';
 					ci <= '1';
 					cPA <= '0';
@@ -80,7 +81,7 @@ BEGIN
 					proximoEstado <= S2;
 
 				when S2 =>
-					pronto <= '0';
+					done <= '0';
 					zi <= '1';
 					ci <= '1';
 					cPA <= '0';
@@ -95,7 +96,7 @@ BEGIN
 						proximoEstado <= S5;
 					end if;
 				when S3 =>
-					pronto <= '0';
+					done <= '0';
 					zi <= '1';
 					ci <= '1';
 					cPA <= '1';
@@ -106,7 +107,7 @@ BEGIN
 					read_mem <= '1';
 					proximoEstado <= S4;
 				when S4 =>
-					pronto <= '0';
+					done <= '0';
 					zi <= '0';
 					ci <= '1';
 					cPA <= '0';
@@ -117,7 +118,7 @@ BEGIN
 					read_mem <= '0';
 					proximoEstado <= S2;
 				when S5 =>
-					pronto <= '0';
+					done <= '0';
 					zi <= '0';
 					ci <= '0';
 					cPA <= '0';

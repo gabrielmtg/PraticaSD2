@@ -28,7 +28,7 @@ ENTITY sad_operativo IS
 		menor : OUT STD_LOGIC; 
 		
 		--LB : integer(LOG2(real(N))); -- e para ser o log de 64, logo o nosso 6, ver depois
-		pA,pB : IN STD_LOGIC_VECTOR(B DOWNTO 0); 
+		pA,pB : IN STD_LOGIC_VECTOR(7 DOWNTO 0); 
 		fim : OUT STD_LOGIC_VECTOR(5 DOWNTO 0); -- a saida end so sad_operativo(6 bits)
 		SAD : OUT STD_LOGIC_VECTOR(13 DOWNTO 0) -- a saida sad do sad_operativo(14 bits)
 	);
@@ -149,7 +149,7 @@ END component ;
 
 -------MUX----------------
 
-component mux_2x1 is
+component mux6 is
     Port (
         a   : in  STD_LOGIC_VECTOR(6 DOWNTO 0);          -- Entrada 1
         b   : in  STD_LOGIC_VECTOR(6 DOWNTO 0);          -- Entrada 2
@@ -171,7 +171,7 @@ BEGIN
 -- Vamos desenvolver aqui o comportamento do circuito
 
 -- ciclo do loop------------------------------------------------
-Muxi: mux_2x1 port map(entradadomuxi,"0000000",zi,saidamuxi);
+Muxi: mux6 port map(entradadomuxi,"0000000",zi,saidamuxi);
 Regi: regn PORT MAP(saidamuxi,ci,clk,saidaregi);
 menor <= saidaregi(6); -- parte da 'quebra' de bits ---- pegamos esse sinal pra o menor
 saidaregi6 <= saidaregi(5 downto 0); -- parte da 'quebra' de bits -- pegamos esse sinal pro end tambem
@@ -189,8 +189,5 @@ Mux: mux14 port map(saidaADDDER,"00000000000000",zsoma,saidaMUX);
 regsoma: regn14 port map(saidaMUX,csoma,clk,saidaSOMA); -- esse é o SOMA 
 ultimoreg: regn14 port map(saidaSOMA,csad_reg,clk,saidaSAD_reg);
 SAD <= saidaSAD_reg; -- esse e o valor que temos na saida SAD
-
-
-
 
 END ARCHITECTURE; -- arch
