@@ -24,14 +24,14 @@ ENTITY datapathV3 IS
 		-- configurável que funcione tanto para a SAD v1 quanto para a SAD v3).
 		-- Não modifiquem os nomes das portas, apenas a largura de bits quando
 		-- for necessário.
-		clk,zi,ci,cpA,cpB,zsoma,csoma,csad_reg : IN STD_LOGIC; -- tem que ter o clk(acho q não)
+		clk,zi,ci,cpA0,cpA1,cpA2,cpA3,cpB0,cpB1,cpB2,cpB3,zsoma,csoma,csad_reg : IN STD_LOGIC; -- tem que ter o clk(acho q não)
 		menor : OUT STD_LOGIC; 
 		
 		--LB : integer(LOG2(real(N))); -- e para ser o log de 64, logo o nosso 6, ver depois
-		pA0,pB0 : IN STD_LOGIC_VECTOR(B DOWNTO 0); 
-		pA1,pB1 : IN STD_LOGIC_VECTOR(B DOWNTO 0); 
-		pA2,pB2 : IN STD_LOGIC_VECTOR(B DOWNTO 0); 
-		pA3,pB3 : IN STD_LOGIC_VECTOR(B DOWNTO 0); 
+		pA0,pB0 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
+		pA1,pB1 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
+		pA2,pB2 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
+		pA3,pB3 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
 		fim : OUT STD_LOGIC_VECTOR(3 DOWNTO 0); -- a saida end so datapath(4 bits)
 		SAD : OUT STD_LOGIC_VECTOR(13 DOWNTO 0) -- a saida sad do datapath(14 bits)
 	);
@@ -177,7 +177,7 @@ component subtractor is
 end component;
 
 ---------REGISTRADORES-----
-component regn IS
+component reg7 IS
 GENERIC ( N : INTEGER := 7 ) ;
 PORT (R : IN STD_LOGIC_VECTOR(N-1 DOWNTO 0) ;
 Rin, Clock: IN STD_LOGIC ;
@@ -207,7 +207,7 @@ END component ;
 
 -------MUX----------------
 
-component mux_2x1 is
+component mux6 is
     Port (
         a   : in  STD_LOGIC_VECTOR(6 DOWNTO 0);          -- Entrada 1
         b   : in  STD_LOGIC_VECTOR(6 DOWNTO 0);          -- Entrada 2
