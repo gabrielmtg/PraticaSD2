@@ -52,85 +52,89 @@ ARCHITECTURE arch OF sad_controle IS
 BEGIN
 
 --revisar isso dps pq com certeza nao esta certo.
-	process(reset, clk)
-	begin
-		if(reset = '1') then
-			estadoAtual <= S0;
-		elsif(rising_edge(clk)) then
-			case estadoAtual is
-				when S0 =>
-					done <= '1';
-					zi <= '0';
-					ci <= '0';
-					cPA <= '0';
-					cPB <= '0';
-					zsoma <= '0';
-					csoma <= '0';
-					csad_reg <= '0';
-					read_mem <= '0';
-					proximoEstado <= S1;
-					
-				when S1 =>
-					done <= '0';
-					zi <= '1';
-					ci <= '1';
-					cPA <= '0';
-					cPB <= '0';
-					zsoma <= '1';
-					csoma <= '1';
-					csad_reg <= '0';
-					read_mem <= '0';
-					proximoEstado <= S2;
+process(reset, clk)
+begin
+    if(reset = '1') then
+        estadoAtual <= S0;
+    elsif(rising_edge(clk)) then
+        case estadoAtual is
+            when S0 =>
+                done <= '1';
+                zi <= '0';
+                ci <= '0';
+                cPA <= '0';
+                cPB <= '0';
+                zsoma <= '0';
+                csoma <= '0';
+                csad_reg <= '0';
+                read_mem <= '0';
+                proximoEstado <= S1;
+                
+            when S1 =>
+                done <= '0';
+                zi <= '1';
+                ci <= '1';
+                cPA <= '0';
+                cPB <= '0';
+                zsoma <= '1';
+                csoma <= '1';
+                csad_reg <= '0';
+                read_mem <= '0';
+                proximoEstado <= S2;
 
-				when S2 =>
-					done <= '0';
-					zi <= '1';
-					ci <= '1';
-					cPA <= '0';
-					cPB <= '0';
-					zsoma <= '1';
-					csoma <= '1';
-					csad_reg <= '0';
-					read_mem <= '0';
-					if(menor = '0') then
-						proximoEstado <= S3;
-					elsif (menor = '1') then
-						proximoEstado <= S5;
-					end if;
-				when S3 =>
-					done <= '0';
-					zi <= '1';
-					ci <= '1';
-					cPA <= '1';
-					cPB <= '1';
-					zsoma <= '0';
-					csoma <= '0';
-					csad_reg <= '0';
-					read_mem <= '1';
-					proximoEstado <= S4;
-				when S4 =>
-					done <= '0';
-					zi <= '0';
-					ci <= '1';
-					cPA <= '0';
-					cPB <= '0';
-					zsoma <= '0';
-					csoma <= '1';
-					csad_reg <= '0';
-					read_mem <= '0';
-					proximoEstado <= S2;
-				when S5 =>
-					done <= '0';
-					zi <= '0';
-					ci <= '0';
-					cPA <= '0';
-					cPB <= '0';
-					zsoma <= '0';
-					csoma <= '0';
-					csad_reg <= '1';
-					read_mem <= '0';
-					proximoEstado <= S0;
-				end case;
-			end if;
-		end process;
+            when S2 =>
+                done <= '0';
+                zi <= '1';
+                ci <= '1';
+                cPA <= '0';
+                cPB <= '0';
+                zsoma <= '1';
+                csoma <= '1';
+                csad_reg <= '0';
+                read_mem <= '0';
+                if(menor = '0') then
+                    proximoEstado <= S3;
+                elsif (menor = '1') then
+                    proximoEstado <= S5;
+                end if;
+            when S3 =>
+                done <= '0';
+                zi <= '1';
+                ci <= '1';
+                cPA <= '1';
+                cPB <= '1';
+                zsoma <= '0';
+                csoma <= '0';
+                csad_reg <= '0';
+                read_mem <= '1';
+                proximoEstado <= S4;
+            when S4 =>
+                done <= '0';
+                zi <= '0';
+                ci <= '1';
+                cPA <= '0';
+                cPB <= '0';
+                zsoma <= '0';
+                csoma <= '1';
+                csad_reg <= '0';
+                read_mem <= '0';
+                proximoEstado <= S2;
+            when S5 =>
+                done <= '0';
+                zi <= '0';
+                ci <= '0';
+                cPA <= '0';
+                cPB <= '0';
+                zsoma <= '0';
+                csoma <= '0';
+                csad_reg <= '1';
+                read_mem <= '0';
+                proximoEstado <= S0;
+            end case;
+        end if;
+    end process;
+    
+    cPA => PA0, PA1, PA2, PA3;
+    cPB => PB0, PB1, PB2, PB3;
+    
 END ARCHITECTURE; -- arch

@@ -25,7 +25,7 @@ ENTITY datapathV3 IS
 		-- Não modifiquem os nomes das portas, apenas a largura de bits quando
 		-- for necessário.
 		clk,zi,ci,cpA0,cpA1,cpA2,cpA3,cpB0,cpB1,cpB2,cpB3,zsoma,csoma,csad_reg : IN STD_LOGIC; -- tem que ter o clk(acho q não)
-		menor : OUT STD_LOGIC; 
+		menor : OUT STD_LOGIC;
 		
 		--LB : integer(LOG2(real(N))); -- e para ser o log de 64, logo o nosso 6, ver depois
 		pA0,pB0 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
