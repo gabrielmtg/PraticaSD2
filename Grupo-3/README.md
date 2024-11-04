@@ -23,6 +23,7 @@ Saídas: read_mam (sinal para fazer a leitura da memoria), address (endereço da
 O circuito possui 2 blocos, o bloco de controle, que tem a FSM, e o bloco operativo que tem os componetes necessarios para fazer as operacoes da SAD-V1.
 
 ### Simulação
+Para fazer a simulação primeiro tivemos que pegar os valores dos atrasos para podermos montar o arquivo do estimulos, então fomos atrasos do numero de ciclos que o sistema iria levar, nos slides da aula teorica tinha os cálculos prontos, sendo 195 ciclos a quantidade necessaria para concluir os sistema, então deveriamos multiplicar esse valor pelo clock escolhido, no nosso caso, como o clock que usamos para testar doi de 10, o tempo para concluir toda opereção seria de 195*10 = 1950. Porém como devemos considerar alguns atrasos para começar mais teste, colocamos 1980 para cobri-los(demorou um pouco pra gente descobrir essa, mas dando zoom no model sim dava pra ver esse atraso de uns 30 ns). Para os valores fizemos os teste somando 1 dos registradores com todos os valores em 1, porque era mais facil de calcular o resultado esperado, então como teriamos 11111111 = 255, e somariamos 255 + 0 64 vezes, era pra termos 255*64 = 16.320, que foi o resultado obtido.
 
 ### SAD-V3
 
@@ -34,4 +35,5 @@ Para que isso possa acontecer, agora há 8 registradores que recebem os números
 As entradas e saídas permanecem as mesmas do circuito anterior, mas agora há muitos mais sinais internos para conectar os novos componentes, com diferentes quantidades de bits. O bloco de controle foi mantido inalterado.
 
 ### Simulação
+para testar fizemos tudo parecido com o SAD_V1, pegamos o atraso no timig analizer, obtivemos 104.3 MHz, convertemos para nanosegundos, dando 9.5877277085331, para facilitar colocamos como clock 10 segundo também. Olhando nos slides da aula da teorica vimos que teriamos 51 ciclos, logo 510 ns para concluir o sistema, então para ter uma folga no final e não ultrapar os atrasos colocamos 540(dando zoom no model sim dá pra ver que é mais ou menos no 531 que ele termina se preparar tudo). Quanto aos valores começamos somando vários 1s, ou seja, somamos 1+1+1+1  16 vezes, resultando em 64. Depois fizemos o mesmo teste do SAD_V1 para ver se dava o mesmo resultando e deu.
 
