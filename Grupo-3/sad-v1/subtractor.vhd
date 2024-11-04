@@ -1,43 +1,19 @@
--- Quartus II VHDL Template
--- Signed Adder/Subtractor
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-
-entity subtractor is
-
-	generic
-	(
-		DATA_WIDTH : natural := 8
+ENTITY subtractor IS
+	GENERIC (N : POSITIVE := 8);
+	PORT (
+		A, B: IN std_logic_vector (N-1 DOWNTO 0);
+		X: out std_logic;
+		S: OUT std_logic_vector (N DOWNTO 0)
 	);
+END subtractor;
 
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
+ARCHITECTURE arch OF subtractor IS
+BEGIN
 
-end entity;
+	S <= std_logic_vector(signed('0' & A) - signed('0' & B));
 
-architecture rtl of subtractor is
-
-signal X : signed ((DATA_WIDTH-1) downto 0); -- sinal pra fazer a conversão entre signed e std_logic_vector
-
-begin
-
-	process(a,b,add_sub)
-	begin
-		-- Add if "add_sub" is 1, else subtract
-		if (add_sub = '0') then
-			X <= a + b;
-		else
-			X <= a - b;
-		end if;
-	end process;
-	
-	result <= std_logic_vector(abs(X)); -- ja temos o abs aqui no subtrator!!!(outro motivo pra ter o sinal signed)
-
-end rtl;
+END arch;

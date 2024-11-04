@@ -1,43 +1,23 @@
--- Quartus II VHDL Template
--- Signed Adder/Subtractor
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE ieee.std_logic_unsigned.ALL;
 
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-
-entity adder14 is
-
-	generic
-	(
-		DATA_WIDTH : natural := 14
+ENTITY adder14 IS
+	GENERIC (N : POSITIVE := 14);
+	PORT (
+		A, B: IN std_logic_vector (N-1 DOWNTO 0);
+		c_out: OUT STD_LOGIC;
+		S: OUT std_logic_vector (N-1 DOWNTO 0)
 	);
+END adder14;
 
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
+ARCHITECTURE arch OF adder14 IS
+SIGNAL resultado: std_logic_vector(N DOWNTO 0);
+BEGIN
 
-end entity;
+	resultado <= ('0'& A) + ('0' & B);
+	c_out <= resultado(N);
+	S <= resultado(N-1 downto 0);
 
-architecture rtl of adder14 is
-
-signal x: signed((DATA_WIDTH-1) downto 0);
-
-begin
-
-	process(a,b,add_sub)
-	begin
-		-- Add if "add_sub" is 1, else subtract
-		if (add_sub = '1') then
-			x <= a + b;
-		else
-			x <= a - b;
-		end if;
-	end process;
-	
-	result <= std_logic_vector(x);
-
-end rtl;
+END arch;

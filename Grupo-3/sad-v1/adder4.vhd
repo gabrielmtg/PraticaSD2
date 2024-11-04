@@ -3,9 +3,9 @@ USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
 USE ieee.std_logic_unsigned.ALL;
 
-ENTITY adder IS
+ENTITY adder4 IS
 	GENERIC (
-		N : POSITIVE := 6 -- número de bits por amostra
+		N : POSITIVE := 4 -- número de bits por amostra
 	);
 	PORT (
 			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
@@ -15,7 +15,7 @@ ENTITY adder IS
 		);
 END ENTITY;
 
-ARCHITECTURE arch OF adder IS
+ARCHITECTURE arch OF adder4 IS
 	SIGNAL soma : STD_LOGIC_VECTOR(N DOWNTO 0);
 BEGIN
 	soma <= ('0' & a) + ('0' & b);

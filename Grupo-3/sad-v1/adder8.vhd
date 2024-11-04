@@ -1,43 +1,24 @@
--- Quartus II VHDL Template
--- Signed Adder/Subtractor
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+USE ieee.std_logic_unsigned.ALL;
 
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
-
-entity adder8 is
-
-	generic
-	(
-		DATA_WIDTH : natural := 8
+ENTITY adder8 IS
+	GENERIC (
+		N : POSITIVE := 8 -- número de bits por amostra
 	);
+	PORT (
+			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
+			b : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
+			cout : OUT STD_LOGIC; -- carry out
+			s : OUT STD_LOGIC_VECTOR (N - 1 DOWNTO 0) -- saída somador			
+		);
+END ENTITY;
 
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-
-end entity;
-
-architecture rtl of adder8 is
-
-signal x: signed((DATA_WIDTH-1) downto 0);
-
-begin
-
-	process(a,b,add_sub)
-	begin
-		-- Add if "add_sub" is 1, else subtract
-		if (add_sub = '1') then
-			x <= a + b;
-		else
-			x <= a - b;
-		end if;
-	end process;
-	
-	result <= std_logic_vector(x);
-
-end rtl;
+ARCHITECTURE arch OF adder8 IS
+	SIGNAL soma : STD_LOGIC_VECTOR(N DOWNTO 0);
+BEGIN
+	soma <= ('0' & a) + ('0' & b);
+	cout <= soma(N);
+	s <= soma(N - 1 downto 0);
+END ARCHITECTURE;

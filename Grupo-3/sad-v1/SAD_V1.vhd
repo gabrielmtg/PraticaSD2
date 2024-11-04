@@ -37,22 +37,16 @@ END ENTITY; -- sad
 ARCHITECTURE arch OF SAD_V1 IS
 
 
-component sad_controle IS
-	GENERIC (
-		B : POSITIVE := 8; -- número de bits por amostra
-		P : POSITIVE := 1 -- número de amostras de cada bloco lidas em paralelo
-		-----------------------------------------------------------------------
-	);
-	PORT (
-		clk : IN STD_LOGIC; -- ck
-		enable : IN STD_LOGIC; -- iniciar
-		reset : IN STD_LOGIC; -- reset
-		read_mem : OUT STD_LOGIC; -- read
-		done,zi,ci,cPA,cPB,zsoma,csoma,csad_reg: OUT STD_LOGIC; -- pronto e outras coisas
-		menor : IN STD_LOGIC -- menor
-	);
-	
-END component; -- sad_controle
+component sad_controle IS PORT(
+	clk : IN STD_LOGIC; -- ck
+	enable : IN STD_LOGIC; -- iniciar
+	reset : IN STD_LOGIC; -- reset
+	read_mem : OUT STD_LOGIC; -- read
+	done: OUT STD_LOGIC; -- pronto
+	zi, ci, cpA, cpB, zSoma, csoma, csad_reg: OUT std_logic; -- comandos
+	menor: IN std_logic -- status
+);
+END component;
 
 component sad_operativo IS
 	GENERIC (
