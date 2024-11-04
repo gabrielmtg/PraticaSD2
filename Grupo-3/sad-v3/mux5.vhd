@@ -8,7 +8,7 @@ entity mux5 is
         sel : in  STD_LOGIC;          -- Sinal de seleção
         y   : out STD_LOGIC_VECTOR(4 DOWNTO 0)           -- Saída
     );
-end mux14;
+end mux5;
 
 architecture Behavioral of mux5 is
 begin

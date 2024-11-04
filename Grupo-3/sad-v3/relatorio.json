@@ -1,7 +1,7 @@
 {
     "grupo": {
-        "nome": "grupo 1",
-        "alunos": [{"nome": "um nome", "matricula": "08132023"}]
+        "nome": "grupo 3",
+        "alunos": [{"nome": "Gabriel Martins", "matricula": "241033619"}, {"nome": "Lucas de Oliveira Marisco", "matricula": "24104721"}]
     },
     "quartus": {
         "os": "Windows 11",
