@@ -1,19 +1,19 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.ALL;
-USE ieee.numeric_std.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
-ENTITY subtractor IS
-	GENERIC (N : POSITIVE := 8);
-	PORT (
-		A, B: IN std_logic_vector (N-1 DOWNTO 0);
-		X: out std_logic;
-		S: OUT std_logic_vector (N DOWNTO 0)
-	);
-END subtractor;
+entity subtractor is
+    generic (n : positive := 8);
+    port (
+        a, b: in std_logic_vector (n-1 downto 0);
+        x: out std_logic;
+        s: out std_logic_vector (n downto 0)
+    );
+end subtractor;
 
-ARCHITECTURE arch OF subtractor IS
-BEGIN
+architecture rtl of subtractor is
+begin
 
-	S <= std_logic_vector(signed('0' & A) - signed('0' & B));
+    s <= std_logic_vector(signed('0' & a) - signed('0' & b));
 
-END arch;
+end rtl;
