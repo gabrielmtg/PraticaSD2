@@ -71,38 +71,32 @@ signal saidaSUB: std_LOGIC_VECTOR(8 downto 0);
 
 -------SOMADOR E SUBTRATOR--------
 
-component adder IS
-	GENERIC (
-		N : POSITIVE := 6 -- número de bits por amostra
-	);
-	PORT (
-			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
-			b : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
-			cout : OUT STD_LOGIC; -- carry out
-			s : OUT STD_LOGIC_VECTOR (N - 1 DOWNTO 0) -- saída somador			
-		);
-END component;
+component adder is
+    generic (N : positive := 6);
+    port (
+        a, b: in std_logic_vector (N-1 downto 0);
+        cout: out std_logic;
+        s: out std_logic_vector (N-1 downto 0)
+    );
+end component;
 
-component adder8 IS
-	GENERIC (
-		N : POSITIVE := 8 -- número de bits por amostra
-	);
-	PORT (
-			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
-			b : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
-			cout : OUT STD_LOGIC; -- carry out
-			s : OUT STD_LOGIC_VECTOR (N - 1 DOWNTO 0) -- saída somador			
-		);
-END component;
+component adder8 is
+    generic (N : positive := 8);
+    port (
+        a, b: in std_logic_vector (N-1 downto 0);
+        cout: out std_logic;
+        s: out std_logic_vector (N-1 downto 0)
+    );
+end component;
 
-component adder14 IS
-	GENERIC (N : POSITIVE := 14);
-	PORT (
-		A, B: IN std_logic_vector (N-1 DOWNTO 0);
-		c_out: OUT STD_LOGIC;
-		S: OUT std_logic_vector (N-1 DOWNTO 0)
-	);
-END component;
+component adder14 is
+    generic (N : positive := 14);
+    port (
+        a, b: in std_logic_vector (N-1 downto 0);
+        cout: out std_logic;
+        s: out std_logic_vector (N-1 downto 0)
+    );
+end component;
 
 component subtractor IS
 	GENERIC (N : POSITIVE := 8);
