@@ -1,24 +1,23 @@
-LIBRARY ieee;
-USE ieee.std_logic_1164.ALL;
-USE ieee.numeric_std.ALL;
-USE ieee.std_logic_unsigned.ALL;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use ieee.std_logic_unsigned.all;
 
-ENTITY adder IS
-	GENERIC (
-		N : POSITIVE := 6 -- número de bits por amostra
-	);
-	PORT (
-			a : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
-			b : IN STD_LOGIC_VECTOR (N - 1 DOWNTO 0); -- entrada somador
-			cout : OUT STD_LOGIC; -- carry out
-			s : OUT STD_LOGIC_VECTOR (N - 1 DOWNTO 0) -- saída somador			
-		);
-END ENTITY;
+entity adder is
+    generic (N : positive := 6);
+    port (
+        a, b: in std_logic_vector (N-1 downto 0);
+        cout: out std_logic;
+        s: out std_logic_vector (N-1 downto 0)
+    );
+end adder;
 
-ARCHITECTURE arch OF adder IS
-	SIGNAL soma : STD_LOGIC_VECTOR(N DOWNTO 0);
-BEGIN
-	soma <= ('0' & a) + ('0' & b);
-	cout <= soma(N);
-	s <= soma(N - 1 downto 0);
-END ARCHITECTURE;
+architecture rtl of adder is
+signal result: std_logic_vector(N downto 0);
+begin
+
+    result <= ('0' & a) + ('0' & b);
+    cout <= result(N);
+    s <= result(N-1 downto 0);
+
+end rtl;
