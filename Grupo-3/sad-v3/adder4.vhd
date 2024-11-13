@@ -1,43 +1,23 @@
--- Quartus II VHDL Template
--- Signed Adder/Subtractor
-
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use ieee.std_logic_unsigned.all;
 
 entity adder4 is
-
-	generic
-	(
-		DATA_WIDTH : natural := 4
-	);
-
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-
-end entity;
+    generic (n : positive := 4);
+    port (
+        a, b: in std_logic_vector (n-1 downto 0);
+        cout: out std_logic;
+        s: out std_logic_vector (n-1 downto 0)
+    );
+end adder4;
 
 architecture rtl of adder4 is
-
-signal x: signed((DATA_WIDTH-1) downto 0);
-
+signal result: std_logic_vector(n downto 0);
 begin
 
-	process(a,b,add_sub)
-	begin
-		-- Add if "add_sub" is 1, else subtract
-		if (add_sub = '1') then
-			x <= a + b;
-		else
-			x <= a - b;
-		end if;
-	end process;
-	
-	result <= std_logic_vector(x);
+    result <= ('0' & a) + ('0' & b);
+    cout <= result(n);
+    s <= result(n-1 downto 0);
 
 end rtl;

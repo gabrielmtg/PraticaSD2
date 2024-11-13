@@ -1,0 +1,9 @@
+
+State Machine - |SAD_V3|sad_controle:Bloco_de_Controle|estadoAtual
+Name estadoAtual.S5 estadoAtual.S4 estadoAtual.S3 estadoAtual.S2 estadoAtual.S1 estadoAtual.S0 
+estadoAtual.S0 0 0 0 0 0 0 
+estadoAtual.S1 0 0 0 0 1 1 
+estadoAtual.S2 0 0 0 1 0 1 
+estadoAtual.S3 0 0 1 0 0 1 
+estadoAtual.S4 0 1 0 0 0 1 
+estadoAtual.S5 1 0 0 0 0 1 

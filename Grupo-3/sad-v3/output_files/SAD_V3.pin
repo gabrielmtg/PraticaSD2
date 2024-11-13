@@ -1,0 +1,215 @@
+ -- Copyright (C) 1991-2013 Altera Corporation
+ -- Your use of Altera Corporation's design tools, logic functions 
+ -- and other software and tools, and its AMPP partner logic 
+ -- functions, and any output files from any of the foregoing 
+ -- (including device programming or simulation files), and any 
+ -- associated documentation or information are expressly subject 
+ -- to the terms and conditions of the Altera Program License 
+ -- Subscription Agreement, Altera MegaCore Function License 
+ -- Agreement, or other applicable license agreement, including, 
+ -- without limitation, that your use is for the sole purpose of 
+ -- programming logic devices manufactured by Altera and sold by 
+ -- Altera or its authorized distributors.  Please refer to the 
+ -- applicable agreement for further details.
+ -- 
+ -- This is a Quartus II output file. It is for reporting purposes only, and is
+ -- not intended for use as a Quartus II input file. This file cannot be used
+ -- to make Quartus II pin assignments - for instructions on how to make pin
+ -- assignments, please see Quartus II help.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- NC            : No Connect. This pin has no internal connection to the device.
+ -- DNU           : Do Not Use. This pin MUST NOT be connected.
+ -- VCCINT        : Dedicated power pin, which MUST be connected to VCC  (1.2V).
+ -- VCCIO         : Dedicated power pin, which MUST be connected to VCC
+ --                 of its bank.
+ --					Bank 1:		2.5V
+ --					Bank 2:		2.5V
+ --					Bank 3:		2.5V
+ --					Bank 4:		2.5V
+ --					Bank 5:		2.5V
+ --					Bank 6:		2.5V
+ --					Bank 7:		2.5V
+ --					Bank 8:		2.5V
+ -- GND           : Dedicated ground pin. Dedicated GND pins MUST be connected to GND.
+ --					It can also be used to report unused dedicated pins. The connection
+ --					on the board for unused dedicated pins depends on whether this will
+ --					be used in a future design. One example is device migration. When
+ --					using device migration, refer to the device pin-tables. If it is a
+ --					GND pin in the pin table or if it will not be used in a future design
+ --					for another purpose the it MUST be connected to GND. If it is an unused
+ --					dedicated pin, then it can be connected to a valid signal on the board
+ --					(low, high, or toggling) if that signal is required for a different
+ --					revision of the design.
+ -- GND+          : Unused input pin. It can also be used to report unused dual-purpose pins.
+ --					This pin should be connected to GND. It may also be connected  to a
+ --					valid signal  on the board  (low, high, or toggling)  if that signal
+ --					is required for a different revision of the design.
+ -- GND*          : Unused  I/O  pin. Connect each pin marked GND* directly to GND
+ --           	    or leave it unconnected.
+ -- RESERVED      : Unused I/O pin, which MUST be left unconnected.
+ -- RESERVED_INPUT    : Pin is tri-stated and should be connected to the board.
+ -- RESERVED_INPUT_WITH_WEAK_PULLUP    : Pin is tri-stated with internal weak pull-up resistor.
+ -- RESERVED_INPUT_WITH_BUS_HOLD       : Pin is tri-stated with bus-hold circuitry.
+ -- RESERVED_OUTPUT_DRIVEN_HIGH        : Pin is output driven high.
+ ---------------------------------------------------------------------------------
+
+
+
+ ---------------------------------------------------------------------------------
+ -- Pin directions (input, output or bidir) are based on device operating in user mode.
+ ---------------------------------------------------------------------------------
+
+Quartus II 32-bit Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+CHIP  "SAD_V3"  ASSIGNED TO AN: EP3C5E144C7
+
+Pin Name/Usage               : Location  : Dir.   : I/O Standard      : Voltage : I/O Bank  : User Assignment
+-------------------------------------------------------------------------------------------------------------
+sample_can[6]                : 1         : input  : 2.5 V             :         : 1         : N              
+sad_value[13]                : 2         : output : 2.5 V             :         : 1         : N              
+sample_can[8]                : 3         : input  : 2.5 V             :         : 1         : N              
+sample_ori[17]               : 4         : input  : 2.5 V             :         : 1         : N              
+VCCINT                       : 5         : power  :                   : 1.2V    :           :                
+~ALTERA_ASDO_DATA1~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 6         : input  : 2.5 V             :         : 1         : N              
+sample_ori[14]               : 7         : input  : 2.5 V             :         : 1         : N              
+~ALTERA_FLASH_nCE_nCSO~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 8         : input  : 2.5 V             :         : 1         : N              
+nSTATUS                      : 9         :        :                   :         : 1         :                
+sample_ori[18]               : 10        : input  : 2.5 V             :         : 1         : N              
+sample_can[12]               : 11        : input  : 2.5 V             :         : 1         : N              
+~ALTERA_DCLK~                : 12        : output : 2.5 V             :         : 1         : N              
+~ALTERA_DATA0~ / RESERVED_INPUT_WITH_WEAK_PULLUP : 13        : input  : 2.5 V             :         : 1         : N              
+nCONFIG                      : 14        :        :                   :         : 1         :                
+TDI                          : 15        : input  :                   :         : 1         :                
+TCK                          : 16        : input  :                   :         : 1         :                
+VCCIO1                       : 17        : power  :                   : 2.5V    : 1         :                
+TMS                          : 18        : input  :                   :         : 1         :                
+GND                          : 19        : gnd    :                   :         :           :                
+TDO                          : 20        : output :                   :         : 1         :                
+nCE                          : 21        :        :                   :         : 1         :                
+clk                          : 22        : input  : 2.5 V             :         : 1         : N              
+reset                        : 23        : input  : 2.5 V             :         : 1         : N              
+GND+                         : 24        :        :                   :         : 2         :                
+GND+                         : 25        :        :                   :         : 2         :                
+VCCIO2                       : 26        : power  :                   : 2.5V    : 2         :                
+GND                          : 27        : gnd    :                   :         :           :                
+sample_can[15]               : 28        : input  : 2.5 V             :         : 2         : N              
+VCCINT                       : 29        : power  :                   : 1.2V    :           :                
+sad_value[3]                 : 30        : output : 2.5 V             :         : 2         : N              
+address[2]                   : 31        : output : 2.5 V             :         : 2         : N              
+sample_can[23]               : 32        : input  : 2.5 V             :         : 2         : N              
+sample_ori[23]               : 33        : input  : 2.5 V             :         : 2         : N              
+sample_ori[8]                : 34        : input  : 2.5 V             :         : 2         : N              
+VCCA1                        : 35        : power  :                   : 2.5V    :           :                
+GNDA1                        : 36        : gnd    :                   :         :           :                
+VCCD_PLL1                    : 37        : power  :                   : 1.2V    :           :                
+sample_can[7]                : 38        : input  : 2.5 V             :         : 3         : N              
+sample_can[20]               : 39        : input  : 2.5 V             :         : 3         : N              
+VCCIO3                       : 40        : power  :                   : 2.5V    : 3         :                
+GND                          : 41        : gnd    :                   :         :           :                
+sad_value[7]                 : 42        : output : 2.5 V             :         : 3         : N              
+sample_ori[1]                : 43        : input  : 2.5 V             :         : 3         : N              
+sample_can[11]               : 44        : input  : 2.5 V             :         : 3         : N              
+VCCINT                       : 45        : power  :                   : 1.2V    :           :                
+sample_can[9]                : 46        : input  : 2.5 V             :         : 3         : N              
+VCCIO3                       : 47        : power  :                   : 2.5V    : 3         :                
+GND                          : 48        : gnd    :                   :         :           :                
+sample_can[19]               : 49        : input  : 2.5 V             :         : 3         : N              
+sad_value[2]                 : 50        : output : 2.5 V             :         : 3         : N              
+sample_can[1]                : 51        : input  : 2.5 V             :         : 3         : N              
+sample_ori[7]                : 52        : input  : 2.5 V             :         : 3         : N              
+sample_ori[0]                : 53        : input  : 2.5 V             :         : 3         : N              
+sample_ori[5]                : 54        : input  : 2.5 V             :         : 4         : N              
+sample_ori[15]               : 55        : input  : 2.5 V             :         : 4         : N              
+VCCIO4                       : 56        : power  :                   : 2.5V    : 4         :                
+GND                          : 57        : gnd    :                   :         :           :                
+sample_ori[6]                : 58        : input  : 2.5 V             :         : 4         : N              
+address[1]                   : 59        : output : 2.5 V             :         : 4         : N              
+sample_can[3]                : 60        : input  : 2.5 V             :         : 4         : N              
+VCCINT                       : 61        : power  :                   : 1.2V    :           :                
+VCCIO4                       : 62        : power  :                   : 2.5V    : 4         :                
+GND                          : 63        : gnd    :                   :         :           :                
+sample_ori[22]               : 64        : input  : 2.5 V             :         : 4         : N              
+sad_value[0]                 : 65        : output : 2.5 V             :         : 4         : N              
+sample_can[25]               : 66        : input  : 2.5 V             :         : 4         : N              
+address[3]                   : 67        : output : 2.5 V             :         : 4         : N              
+sad_value[6]                 : 68        : output : 2.5 V             :         : 4         : N              
+sample_can[2]                : 69        : input  : 2.5 V             :         : 4         : N              
+address[0]                   : 70        : output : 2.5 V             :         : 4         : N              
+sample_can[29]               : 71        : input  : 2.5 V             :         : 4         : N              
+sample_ori[24]               : 72        : input  : 2.5 V             :         : 4         : N              
+sample_can[17]               : 73        : input  : 2.5 V             :         : 5         : N              
+sample_can[31]               : 74        : input  : 2.5 V             :         : 5         : N              
+sample_ori[19]               : 75        : input  : 2.5 V             :         : 5         : N              
+enable                       : 76        : input  : 2.5 V             :         : 5         : N              
+sample_ori[26]               : 77        : input  : 2.5 V             :         : 5         : N              
+VCCINT                       : 78        : power  :                   : 1.2V    :           :                
+sad_value[11]                : 79        : output : 2.5 V             :         : 5         : N              
+sample_ori[29]               : 80        : input  : 2.5 V             :         : 5         : N              
+VCCIO5                       : 81        : power  :                   : 2.5V    : 5         :                
+GND                          : 82        : gnd    :                   :         :           :                
+sample_ori[31]               : 83        : input  : 2.5 V             :         : 5         : N              
+sample_ori[25]               : 84        : input  : 2.5 V             :         : 5         : N              
+sad_value[10]                : 85        : output : 2.5 V             :         : 5         : N              
+sample_ori[27]               : 86        : input  : 2.5 V             :         : 5         : N              
+sample_can[27]               : 87        : input  : 2.5 V             :         : 5         : N              
+sample_can[28]               : 88        : input  : 2.5 V             :         : 5         : N              
+sample_ori[28]               : 89        : input  : 2.5 V             :         : 5         : N              
+sample_ori[9]                : 90        : input  : 2.5 V             :         : 6         : N              
+GND+                         : 91        :        :                   :         : 6         :                
+CONF_DONE                    : 92        :        :                   :         : 6         :                
+VCCIO6                       : 93        : power  :                   : 2.5V    : 6         :                
+MSEL0                        : 94        :        :                   :         : 6         :                
+GND                          : 95        : gnd    :                   :         :           :                
+MSEL1                        : 96        :        :                   :         : 6         :                
+MSEL2                        : 97        :        :                   :         : 6         :                
+sad_value[8]                 : 98        : output : 2.5 V             :         : 6         : N              
+sad_value[4]                 : 99        : output : 2.5 V             :         : 6         : N              
+done                         : 100       : output : 2.5 V             :         : 6         : N              
+~ALTERA_nCEO~ / RESERVED_OUTPUT_OPEN_DRAIN : 101       : output : 2.5 V             :         : 6         : N              
+VCCINT                       : 102       : power  :                   : 1.2V    :           :                
+sample_can[30]               : 103       : input  : 2.5 V             :         : 6         : N              
+sample_can[26]               : 104       : input  : 2.5 V             :         : 6         : N              
+read_mem                     : 105       : output : 2.5 V             :         : 6         : N              
+sample_ori[3]                : 106       : input  : 2.5 V             :         : 6         : N              
+VCCA2                        : 107       : power  :                   : 2.5V    :           :                
+GNDA2                        : 108       : gnd    :                   :         :           :                
+VCCD_PLL2                    : 109       : power  :                   : 1.2V    :           :                
+sample_can[24]               : 110       : input  : 2.5 V             :         : 7         : N              
+sample_can[5]                : 111       : input  : 2.5 V             :         : 7         : N              
+sad_value[1]                 : 112       : output : 2.5 V             :         : 7         : N              
+sample_ori[30]               : 113       : input  : 2.5 V             :         : 7         : N              
+sad_value[5]                 : 114       : output : 2.5 V             :         : 7         : N              
+sad_value[9]                 : 115       : output : 2.5 V             :         : 7         : N              
+VCCINT                       : 116       : power  :                   : 1.2V    :           :                
+VCCIO7                       : 117       : power  :                   : 2.5V    : 7         :                
+GND                          : 118       : gnd    :                   :         :           :                
+sample_can[4]                : 119       : input  : 2.5 V             :         : 7         : N              
+sample_can[22]               : 120       : input  : 2.5 V             :         : 7         : N              
+sample_can[16]               : 121       : input  : 2.5 V             :         : 7         : N              
+VCCIO7                       : 122       : power  :                   : 2.5V    : 7         :                
+GND                          : 123       : gnd    :                   :         :           :                
+sample_ori[20]               : 124       : input  : 2.5 V             :         : 7         : N              
+sample_can[13]               : 125       : input  : 2.5 V             :         : 7         : N              
+sample_ori[4]                : 126       : input  : 2.5 V             :         : 7         : N              
+sad_value[12]                : 127       : output : 2.5 V             :         : 7         : N              
+sample_can[21]               : 128       : input  : 2.5 V             :         : 8         : N              
+sample_ori[2]                : 129       : input  : 2.5 V             :         : 8         : N              
+VCCIO8                       : 130       : power  :                   : 2.5V    : 8         :                
+GND                          : 131       : gnd    :                   :         :           :                
+sample_ori[12]               : 132       : input  : 2.5 V             :         : 8         : N              
+sample_can[18]               : 133       : input  : 2.5 V             :         : 8         : N              
+VCCINT                       : 134       : power  :                   : 1.2V    :           :                
+sample_ori[13]               : 135       : input  : 2.5 V             :         : 8         : N              
+sample_ori[11]               : 136       : input  : 2.5 V             :         : 8         : N              
+sample_ori[10]               : 137       : input  : 2.5 V             :         : 8         : N              
+sample_can[14]               : 138       : input  : 2.5 V             :         : 8         : N              
+VCCIO8                       : 139       : power  :                   : 2.5V    : 8         :                
+GND                          : 140       : gnd    :                   :         :           :                
+sample_can[10]               : 141       : input  : 2.5 V             :         : 8         : N              
+sample_can[0]                : 142       : input  : 2.5 V             :         : 8         : N              
+sample_ori[16]               : 143       : input  : 2.5 V             :         : 8         : N              
+sample_ori[21]               : 144       : input  : 2.5 V             :         : 8         : N              
+GND                          : EPAD      :        :                   :         :           :                

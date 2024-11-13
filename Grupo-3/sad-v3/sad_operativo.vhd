@@ -3,7 +3,7 @@ USE ieee.std_logic_1164.ALL;
 USE IEEE.math_real.all; -- (pra usar o log teos que fazer o cast real(real(numero))) e depois fazer o integer(number)
 use ieee.numeric_std.all;-- pra usar os signed
 
-ENTITY datapathV3 IS
+ENTITY sad_operativo IS
 	GENERIC (
 		-- obrigatório ---
 		-- defina as operações considerando o número B de bits por amostra
@@ -24,14 +24,14 @@ ENTITY datapathV3 IS
 		-- configurável que funcione tanto para a SAD v1 quanto para a SAD v3).
 		-- Não modifiquem os nomes das portas, apenas a largura de bits quando
 		-- for necessário.
-		clk,zi,ci,cpA0,cpA1,cpA2,cpA3,cpB0,cpB1,cpB2,cpB3,zsoma,csoma,csad_reg : IN STD_LOGIC; -- tem que ter o clk(acho q não)
-		menor : OUT STD_LOGIC;
+		clk,zi,ci,cpA,cpB,zsoma,csoma,csad_reg : IN STD_LOGIC; -- tem que ter o clk(acho q não)
+		menor : OUT STD_LOGIC; 
 		
 		--LB : integer(LOG2(real(N))); -- e para ser o log de 64, logo o nosso 6, ver depois
-		pA0,pB0 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
-		pA1,pB1 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
-		pA2,pB2 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
-		pA3,pB3 : IN STD_LOGIC_VECTOR(B-1 DOWNTO 0); 
+		pA0,pB0 : IN STD_LOGIC_VECTOR(7 DOWNTO 0); 
+		pA1,pB1 : IN STD_LOGIC_VECTOR(15 DOWNTO 8); 
+		pA2,pB2 : IN STD_LOGIC_VECTOR(23 DOWNTO 16); 
+		pA3,pB3 : IN STD_LOGIC_VECTOR(31 DOWNTO 24); 
 		fim : OUT STD_LOGIC_VECTOR(3 DOWNTO 0); -- a saida end so datapath(4 bits)
 		SAD : OUT STD_LOGIC_VECTOR(13 DOWNTO 0) -- a saida sad do datapath(14 bits)
 	);
@@ -41,7 +41,7 @@ ENTITY datapathV3 IS
 	
 END ENTITY; -- sad
 
-ARCHITECTURE arch OF datapathV3 IS
+ARCHITECTURE arch OF sad_operativo IS
 	-- descrever
 	-- usar sad_bo e sad_bc (sad_operativo e sad_controle)
 	-- não codifiquem toda a arquitetura apenas neste arquivo
@@ -71,9 +71,7 @@ signal carryoutsomador4: std_logic;
 -- primeiro somador a aparecer da esquerda pra direita)
 
 signal saidaPA0,saidaPA1,saidaPA2,saidaPA3,saidaPB0,saidaPB1,saidaPB2,saidaPB3: std_logic_vector(7 downto 0); -- signal dos reg do começo
-signal saidaSUB0,saidaSUB1,saidaSUB2,saidaSUB3: std_logic_vector(7 downto 0);
 signal x,xx,xxx,xxxx: std_logic; --signals inuteis só pra botar no carryout deles
-signal saidaABS0,saidaABS1,saidaABS2,saidaABS3: std_logic_vector(7 downto 0); -- nem vamos ter que usar, o ABSjá tá dentro dos subtratores
 signal saidaADD0,saidaADD1: std_logic_vector(7 downto 0);
 signal carryoutsomador0,carryoutsomador1: std_logic; -- signal do carryout do somador
 signal saidaADD09,saidaADD19: std_logic_vector(8 downto 0); -- signal pra concatenar com os carryout
@@ -87,189 +85,50 @@ signal saidaMUX14: std_logic_vector(13 downto 0);
 signal saidaSOMA: std_logic_vector(13 downto 0); -- entra no somador 14 e no SAD_reg
 signal saidaSAD_reg: std_logic_vector(13 downto 0); -- entra no somador 14 e no SAD_reg
 
------------------------COMPONENTES------------------
-
--------SOMADOR E SUBTRATOR--------
-
-component adder is
-	generic
-	(
-		DATA_WIDTH : natural := 6
-	);
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-end component;
-
-component adder4 is
-	generic
-	(
-		DATA_WIDTH : natural := 4
-	);
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-end component;
-
-component adder8 is
-	generic
-	(
-		DATA_WIDTH : natural := 8
-	);
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-end component;
-
-component adder9 is
-	generic
-	(
-		DATA_WIDTH : natural := 9
-	);
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-end component;
-
-component adder14 is
-	generic
-	(
-		DATA_WIDTH : natural := 14
-	);
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-end component;
-
-
-component subtractor is
-	generic
-	(
-		DATA_WIDTH : natural := 8
-	);
-	port 
-	(
-		a		: in signed ((DATA_WIDTH-1) downto 0);
-		b		: in signed ((DATA_WIDTH-1) downto 0);
-		add_sub : in std_logic;
-		result	: out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-end component;
-
----------REGISTRADORES-----
-component reg7 IS
-GENERIC ( N : INTEGER := 7 ) ;
-PORT (R : IN STD_LOGIC_VECTOR(N-1 DOWNTO 0) ;
-Rin, Clock: IN STD_LOGIC ;
-Q : OUT STD_LOGIC_VECTOR(N-1 DOWNTO 0) ) ;
-END component ;	
-
-component reg5 IS
-GENERIC ( N : INTEGER := 5 ) ;
-PORT (R : IN STD_LOGIC_VECTOR(N-1 DOWNTO 0) ;
-Rin, Clock: IN STD_LOGIC ;
-Q : OUT STD_LOGIC_VECTOR(N-1 DOWNTO 0) ) ;
-END component ;
-
-component regn8 IS
-GENERIC ( N : INTEGER := 8 ) ;
-PORT (R : IN STD_LOGIC_VECTOR(N-1 DOWNTO 0) ;
-Rin, Clock: IN STD_LOGIC ;
-Q : OUT STD_LOGIC_VECTOR(N-1 DOWNTO 0) ) ;
-END component ;	
-
-component regn14 IS
-GENERIC ( N : INTEGER := 14 ) ;
-PORT (R : IN STD_LOGIC_VECTOR(N-1 DOWNTO 0) ;
-Rin, Clock: IN STD_LOGIC ;
-Q : OUT STD_LOGIC_VECTOR(N-1 DOWNTO 0) ) ;
-END component ;	
-
--------MUX----------------
-
-component mux6 is
-    Port (
-        a   : in  STD_LOGIC_VECTOR(6 DOWNTO 0);          -- Entrada 1
-        b   : in  STD_LOGIC_VECTOR(6 DOWNTO 0);          -- Entrada 2
-        sel : in  STD_LOGIC;          -- Sinal de seleção
-        y   : out STD_LOGIC_VECTOR(6 DOWNTO 0)           -- Saída
-    );
-end component;
-
-component mux5 is
-    Port (
-        a   : in  STD_LOGIC_VECTOR(4 DOWNTO 0);          -- Entrada 1
-        b   : in  STD_LOGIC_VECTOR(4 DOWNTO 0);          -- Entrada 2
-        sel : in  STD_LOGIC;          -- Sinal de seleção
-        y   : out STD_LOGIC_VECTOR(4 DOWNTO 0)           -- Saída
-    );
-end component;
-
-component mux14 is
-    Port (
-        a   : in  STD_LOGIC_VECTOR(13 DOWNTO 0);          -- Entrada 1
-        b   : in  STD_LOGIC_VECTOR(13 DOWNTO 0);          -- Entrada 2
-        sel : in  STD_LOGIC;          -- Sinal de seleção
-        y   : out STD_LOGIC_VECTOR(13 DOWNTO 0)           -- Saída
-    );
-end component;
+----------------signals extras------------------------------
+signal saidaABS0,saidaABS1,saidaABS2,saidaABS3: std_logic_vector(7 downto 0);
+signal saidaSUB0,saidaSUB1,saidaSUB2,saidaSUB3: std_LOGIC_VECTOR(8 downto 0);
 
 BEGIN
 -- Vamos desenvolver aqui o comportamento do circuito
 
 -- ciclo do loop------------------------------------------------
-Muxi: mux5 port map(entradadomuxi,"00000",zi,saidamuxi);
-Regi: reg5 PORT MAP(saidamuxi,ci,clk,saidaregi);
-menor <= saidaregi(4); -- parte da 'quebra' de bits ---- pegamos esse sinal pra o menor
+Muxi: entity work.mux5 port map(entradadomuxi,"00000",zi,saidamuxi);
+Regi: entity work.reg5 PORT MAP(clk,'0',ci,saidamuxi,saidaregi);
+menor <= not(saidaregi(4)); -- parte da 'quebra' de bits ---- pegamos esse sinal pra o menor
 saidaregi4 <= saidaregi(3 downto 0); -- parte da 'quebra' de bits -- pegamos esse sinal pro end tambem
 fim <= saidaregi4; -- saida end(botei fim pq end nao dava)
-Somadori: adder4 port map(signed(saidaregi4),"1111",carryoutsomador4,saidasomadori); -- tem que transformar o saidaregi6 em signed
+Somadori: entity work.adder4 port map(saidaregi4,"0001",carryoutsomador4,saidasomadori); -- tem que transformar o saidaregi6 em signed
 entradadomuxi <= (carryoutsomador4 & saidasomadori) ;
 
 --ciclo das memorias----------------------------------------------
-RegPA0: regn8 port map(pA0,cpA,clk,saidaPA0);
-RegPA1: regn8 port map(pA1,cpA,clk,saidaPA1);
-RegPA2: regn8 port map(pA2,cpA,clk,saidaPA2);
-RegPA3: regn8 port map(pA3,cpA,clk,saidaPA3);
-RegPB0: regn8 port map(pB0,cpB,clk,saidaPB0);
-RegPB1: regn8 port map(pB1,cpB,clk,saidaPB1);
-RegPB2: regn8 port map(pB2,cpB,clk,saidaPB2);
-RegPB3: regn8 port map(pB3,cpB,clk,saidaPB3);
-Subtrator0: subtractor port map(signed(saidaPA0),signed(saidaPB0),x,saidaSUB0); -- já tem o ABS dentro deles
-Subtrator1: subtractor port map(signed(saidaPA1),signed(saidaPB1),xx,saidaSUB1); 
-Subtrator2: subtractor port map(signed(saidaPA2),signed(saidaPB2),xxx,saidaSUB2); 
-Subtrator3: subtractor port map(signed(saidaPA3),signed(saidaPB3),xxxx,saidaSUB3); 
-Adder0: adder8 port map(signed(saidaSUB0),signed(saidaSUB1),carryoutsomador0,saidaADD0);
-Adder1: adder8 port map(signed(saidaSUB2),signed(saidaSUB3),carryoutsomador1,saidaADD1);
-saidaADD09 <= saidaADD0 & carryoutsomador0;
-saidaADD19 <= saidaADD1 & carryoutsomador1;
-Adder2: adder9 port map(signed(saidaADD09),signed(saidaADD19),carryoutsomador2,saidaADD2);
+RegPA0: entity work.regn8 port map(clk,'0',cpA,pA0,saidaPA0);
+RegPA1: entity work.regn8 port map(clk,'0',cpA,pA1,saidaPA1);
+RegPA2: entity work.regn8 port map(clk,'0',cpA,pA2,saidaPA2);
+RegPA3: entity work.regn8 port map(clk,'0',cpA,pA3,saidaPA3);
+RegPB0: entity work.regn8 port map(clk,'0',cpB,pB0,saidaPB0);
+RegPB1: entity work.regn8 port map(clk,'0',cpB,pB1,saidaPB1);
+RegPB2: entity work.regn8 port map(clk,'0',cpB,pB2,saidaPB2);
+RegPB3: entity work.regn8 port map(clk,'0',cpB,pB3,saidaPB3);
+Subtrator0: entity work.subtractor port map(saidaPA0,saidaPB0,x,saidaSUB0);
+Subtrator1: entity work.subtractor port map(saidaPA1,saidaPB1,xx,saidaSUB1);
+Subtrator2: entity work.subtractor port map(saidaPA2,saidaPB2,xxx,saidaSUB2);
+Subtrator3: entity work.subtractor port map(saidaPA3,saidaPB3,xxxx,saidaSUB3);
+Absolute0: entity work.absolute port map(saidaSUB0,saidaABS0);
+Absolute1: entity work.absolute port map(saidaSUB1,saidaABS1);
+Absolute2: entity work.absolute port map(saidaSUB2,saidaABS2);
+Absolute3: entity work.absolute port map(saidaSUB3,saidaABS3);
+Adder0: entity work.adder8 port map(saidaABS0,saidaABS1,carryoutsomador0,saidaADD0);
+Adder1: entity work.adder8 port map(saidaABS2,saidaABS3,carryoutsomador1,saidaADD1);
+saidaADD09 <= carryoutsomador0 & saidaADD0;
+saidaADD19 <= carryoutsomador1 & saidaADD1;
+Adder2: entity work.adder9 port map(saidaADD09,saidaADD19,carryoutsomador2,saidaADD2);
 saidaADD210 <= carryoutsomador2 & saidaADD2;
 saidaADD214 <= "0000" & saidaADD210;
-Adder3: adder14 port map(signed(saidaSOMA),signed(saidaADD214),y,saidaADD3);
-MMux14: mux14 port map(saidaADD3,"00000000000000",zsoma,saidaMUX14);
-regsoma: regn14 port map(saidaMUX14,csoma,clk,saidaSOMA);
-SAD_reg: regn14 port map(saidaSOMA,csad_reg,clk,saidaSAD_reg);
-SAD <= saidaSAD_reg; -- esse e o valor que temos na saida SAD
+Adder3: entity work.adder14 port map(saidaSOMA,saidaADD214,y,saidaADD3);
+MMux14: entity work.mux14 port map(saidaADD3,"00000000000000",zsoma,saidaMUX14);entity work.
+regsoma: entity work.reg14 port map(clk,'0',csoma,saidaMUX14,saidaSOMA);
+SAD_reg: entity work.reg14 port map(clk,'0',csad_reg,saidaSOMA,SAD);
+
 
 END ARCHITECTURE; -- arch

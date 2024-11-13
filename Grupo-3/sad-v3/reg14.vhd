@@ -1,17 +1,30 @@
-LIBRARY ieee ;
-USE ieee.std_logic_1164.all ;
-ENTITY regn14 IS
-GENERIC ( N : INTEGER := 14 ) ;
-PORT (R : IN STD_LOGIC_VECTOR(N-1 DOWNTO 0) ;
-Rin, Clock: IN STD_LOGIC ;
-Q : OUT STD_LOGIC_VECTOR(N-1 DOWNTO 0) ) ;
-END regn14 ;
-ARCHITECTURE Behavior OF regn14 IS
-BEGIN
-PROCESS
-BEGIN
-WAIT UNTIL Clock'EVENT AND Clock = '1' ;
-IF Rin = '1' THEN Q <= R ;
-END IF ;
-END PROCESS ;
-END Behavior ;
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity reg14 is
+    Port (
+        CLK : in std_logic;
+        RST : in std_logic;
+        EN  : in std_logic;
+        D   : in std_logic_vector(13 downto 0);
+        Q   : out std_logic_vector(13 downto 0)
+    );
+end reg14;
+
+architecture Behavioral of reg14 is
+    signal Q_reg : std_logic_vector(13 downto 0);
+begin
+    process(CLK, RST)
+    begin
+        if RST = '1' then
+            Q_reg <= (others => '0'); -- Reseta o registrador
+        elsif rising_edge(CLK) then
+            if EN = '1' then
+                Q_reg <= D; -- Carrega o valor de D no registrador
+            end if;
+        end if;
+    end process;
+
+    Q <= Q_reg; -- Atribui o valor do registrador à saída Q
+
+end Behavioral;
