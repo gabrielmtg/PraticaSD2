@@ -28,39 +28,33 @@ begin
     port map(clk, enable,reset,sample_ori,sample_can,read_mem,address,sad_value,done);
 
     clk <= not clk after period/2;
-    enable <= '1' after 10 ns;
     reset <= '0' after 10 ns;
+    enable <= '1' after 10 ns;
 
   process
   begin
-    clk <= clk; -- ck
-    enable <= enable; -- iniciar
-    reset <= reset; -- reset
+
     sample_ori <= "00000000"; -- Mem_A[end]
     sample_can <= "11111111"; -- Mem_B[end]
-    
+
     wait for passo;
     assert(sad_value="11111111000000") --16320
     report "Fail 0" severity error;
 
-    clk <= clk; -- ck
-    enable <= enable; -- iniciar
-    reset <= reset; -- reset
+
     sample_ori <= "11110000"; -- Mem_A[end]
     sample_can <= "00001111"; -- Mem_B[end]
-    read_mem <= read_mem;
-    address <= address;
+
     wait for passo;
     assert(sad_value="11111111000000") --16320
     report "Fail 1" severity error;
 
-    clk <= clk; -- ck
-    enable <= enable; -- iniciar
-    reset <= reset; -- reset
+    --clk <= clk; -- ck
+    --enable <= enable; -- iniciar
+    --reset <= reset; -- reset
     sample_ori <= "00000000"; -- Mem_A[end]
     sample_can <= "00000001"; -- Mem_B[end]
-    read_mem <= read_mem;
-    address <= address;
+
     wait for passo;
     assert(sad_value="00000001000000") --64
     report "Fail 2" severity error;
