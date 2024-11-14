@@ -24,7 +24,7 @@ CONSTANT period : TIME := 10 ns; -- tempo do clock
 begin
 
   -- Connect DUV
-  DUV: entity work.SAD_V1(arch) 
+  DUV: entity work.SAD_V1
   generic map(B,N,P)
     port map(clk, enable,reset,sample_ori,sample_can,read_mem,address,sad_value,done);
 
