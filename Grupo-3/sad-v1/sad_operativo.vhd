@@ -66,6 +66,8 @@ signal saidaADDDER,saidaMUX,saidaSOMA,saidaSAD_reg,entradasomador14: std_logic_v
 signal saidaABS0: std_logic_vector(7 downto 0);
 signal saidaSUB: std_LOGIC_VECTOR(8 downto 0);
 
+begin
+
 -- ciclo do loop------------------------------------------------
 Muxi: entity work.mux6 port map(entradadomuxi,"0000000",zi,saidamuxi);
 Regi: entity work.reg7 PORT MAP(clk,'0',ci,saidamuxi,saidaregi);

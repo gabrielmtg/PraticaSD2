@@ -38,7 +38,8 @@ begin
     reset <= reset; -- reset
     sample_ori <= "00000000"; -- Mem_A[end]
     sample_can <= "11111111"; -- Mem_B[end]
-    
+    read_mem <= read_mem;
+    address <= address;
     wait for passo;
     assert(sad_value="11111111000000") --16320
     report "Fail 0" severity error;
