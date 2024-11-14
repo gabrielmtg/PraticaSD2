@@ -3,7 +3,7 @@ import random
 
 # Gera 50 valores binários aleatórios de 64 bits cada
 # cada numero de 64 bits vai ser assim 32 bits pro A e 32 bits pro B
-valores_binarios = [bin(random.randint(0, 18446744073709551615))[2:].zfill(64) for _ in range(100)]
+valores_binarios = [bin(random.randint(0, 255))[2:].zfill(8) for _ in range(64)]
 
 for i, valor in enumerate(valores_binarios, 1): # percorre todos os 50 valores, enumerando-os a partir do 1
 #     print(f"Valor binário {i}: {valor}")
