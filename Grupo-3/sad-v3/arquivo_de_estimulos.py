@@ -9,9 +9,9 @@ for i, valor in enumerate(valores_binarios, 1): # percorre todos os 50 valores, 
 #     print(f"Valor binário {i}: {valor}")
 
 
-    N = 16 # Loop do circuito
-    soma = 0;
-    while(N>0):
+    
+    soma = 0
+    for i in range(0,15):
         
         binaryA0 = valor[:8]
         binaryA1 = valor[8:16] 
@@ -31,8 +31,7 @@ for i, valor in enumerate(valores_binarios, 1): # percorre todos os 50 valores, 
         decimalB2 = int(binaryB2, 2)
         decimalB3 = int(binaryB3, 2)
 
-        soma = soma + decimalA0 + decimalB0 + decimalA1 + decimalB1 + decimalA2 + decimalB2 + decimalA3 + decimalB3;
-        N = N-1;
+        soma = soma + decimalA0 + decimalB0 + decimalA1 + decimalB1 + decimalA2 + decimalB2 + decimalA3 + decimalB3
 
     #print('Decimal esperado:');
     #print(soma, "/n");
